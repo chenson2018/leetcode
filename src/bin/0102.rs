@@ -14,7 +14,7 @@ pub fn max_depth(root: &Option<Rc<RefCell<TreeNode>>>) -> usize {
     })
 }
 
-pub fn push_order(root: &Option<Rc<RefCell<TreeNode>>>, res: &mut Vec<Vec<i32>>, depth : usize) {
+pub fn push_order(root: &Option<Rc<RefCell<TreeNode>>>, res: &mut Vec<Vec<i32>>, depth: usize) {
     if let Some(node) = root {
         let node = node.borrow();
         res[depth].push(node.val);
@@ -27,7 +27,7 @@ impl Solution {
     pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
         let mut res = vec![vec![]; max_depth(&root)];
         push_order(&root, &mut res, 0);
-        res        
+        res
     }
 }
 
