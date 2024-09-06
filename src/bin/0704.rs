@@ -8,7 +8,7 @@ impl Solution {
         Self::search_slice(&nums, target, 0).unwrap_or(-1)
     }
 
-    pub fn search_slice(nums : &[i32], target : i32, idx_left : usize) -> Option<i32> {
+    pub fn search_slice(nums: &[i32], target: i32, idx_left: usize) -> Option<i32> {
         let mid = nums.len() / 2;
         match target.cmp(&nums[mid]) {
             Less | Greater if mid == 0 => None,
@@ -21,5 +21,5 @@ impl Solution {
 
 fn main() {
     // println!("{}", Solution::search(vec![-1,0,3,5,9,12], 9));
-    println!("{}", Solution::search(vec![-1,0,3,5,9,12], 2));
+    println!("{}", Solution::search(vec![-1, 0, 3, 5, 9, 12], 2));
 }
