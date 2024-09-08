@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/middle-of-the-linked-list/
+// https://leetcode.com/problems/odd-even-linked-list/description/
 
 use leetcode::strcutures::ListNode;
 
