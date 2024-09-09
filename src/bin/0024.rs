@@ -10,6 +10,14 @@ impl Solution {
         head
     }
 
+    // Note: this defeats the point, because we copy the values. Imagine if
+    // instead of i32 we had some expensive type. What we really want is to swap
+    // the next points, i.e. the tail of the lists. I don't think we can do this
+    // with the same nice pattern matching without box patterns...
+    //
+    // I really wish that the leetcode data structures used generics, it would
+    // have made this immediately obvious.
+
     #[cfg_attr(any(), rustfmt::skip)]
     pub fn aux(head : &mut Option<Box<ListNode>>) {
         if let Some(ListNode { val, next : Some(node) }) = head.as_deref_mut() {
