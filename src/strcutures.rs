@@ -30,4 +30,12 @@ impl ListNode {
     pub fn new(val: i32) -> Self {
         ListNode { next: None, val }
     }
+
+    pub fn generate(data: Vec<i32>) -> Option<Box<ListNode>> {
+        let mut res = None;
+        for &val in data.iter().rev() {
+            res = Some(Box::new(ListNode { val, next: res }))
+        }
+        res
+    }
 }
