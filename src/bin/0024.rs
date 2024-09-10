@@ -5,26 +5,43 @@ use leetcode::strcutures::ListNode;
 struct Solution;
 
 impl Solution {
-    pub fn swap_pairs(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        Self::aux(&mut head);
-        head
-    }
-
-    // Note: this defeats the point, because we copy the values. Imagine if
-    // instead of i32 we had some expensive type. What we really want is to swap
-    // the next points, i.e. the tail of the lists. I don't think we can do this
-    // with the same nice pattern matching without box patterns...
+    //          n1.next             n2.next
+    //  [1]     ->          [2]     ->          [3]  ->  ...
     //
-    // I really wish that the leetcode data structures used generics, it would
-    // have made this immediately obvious.
+    //
+    //      n1.next =  swap_pairs(n2.next)
+    //
+    //
+    //  [2]     ->
+    //                  swap ([3] -> ...)
+    //  [1]     ->  
+    //
+    //
+    //      n2.next = Some(n1)
+    //
+    //
+    //  [2] -> [1] -> swap([3] -> ...) 
+    //
 
-    #[cfg_attr(any(), rustfmt::skip)]
-    pub fn aux(head : &mut Option<Box<ListNode>>) {
-        if let Some(ListNode { val, next : Some(node) }) = head.as_deref_mut() {
-            (*val, node.val) = (node.val, *val);
-            Self::aux(&mut node.next)
+    pub fn swap_pairs(head : Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        match head {
+            Some(mut n1) => {
+                match n1.next {
+                    Some(mut n2) => {
+                        n1.next = Self::swap_pairs(n2.next);
+                        n2.next = Some(n1);
+                        Some(n2)
+                    }
+                    None => Some(n1),
+                }
+            }
+            None => None,
         }
     }
 }
 
-fn main() {}
+fn main() {
+    let ex = ListNode::generate((1..=5).collect());
+    println!("{:?}", Solution::swap_pairs(ex));
+}
+
