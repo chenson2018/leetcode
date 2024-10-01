@@ -14,27 +14,25 @@ impl Solution {
     //
     //  [2]     ->
     //                  swap ([3] -> ...)
-    //  [1]     ->  
+    //  [1]     ->
     //
     //
     //      n2.next = Some(n1)
     //
     //
-    //  [2] -> [1] -> swap([3] -> ...) 
+    //  [2] -> [1] -> swap([3] -> ...)
     //
 
-    pub fn swap_pairs(head : Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    pub fn swap_pairs(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         match head {
-            Some(mut n1) => {
-                match n1.next {
-                    Some(mut n2) => {
-                        n1.next = Self::swap_pairs(n2.next);
-                        n2.next = Some(n1);
-                        Some(n2)
-                    }
-                    None => Some(n1),
+            Some(mut n1) => match n1.next {
+                Some(mut n2) => {
+                    n1.next = Self::swap_pairs(n2.next);
+                    n2.next = Some(n1);
+                    Some(n2)
                 }
-            }
+                None => Some(n1),
+            },
             None => None,
         }
     }
@@ -44,4 +42,3 @@ fn main() {
     let ex = ListNode::generate((1..=5).collect());
     println!("{:?}", Solution::swap_pairs(ex));
 }
-

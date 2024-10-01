@@ -8,12 +8,13 @@ impl Solution {
         for x in arr {
             counts[x.rem_euclid(k) as usize] += 1;
         }
-        for i in 1..k/2+1 {
-            if counts[i as usize] != counts[(k - i) as usize] {return false}
+        for i in 1..k / 2 + 1 {
+            if counts[i as usize] != counts[(k - i) as usize] {
+                return false;
+            }
         }
         counts[0] % 2 == 0
     }
 }
 
-fn main() {
-}
+fn main() {}
